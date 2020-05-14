@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="./css/shoplist.css">
+    <link rel="stylesheet" href="./font_2tjxvl4sb8l/iconfont.css">
+    <link rel="stylesheet" href="./css/reset.css">
+</head>
+
+<body>
+    <div id="nav">
+        <div id="nav-wrap">
+            <ul class="nav_l">
+                <li class="l_na">
+                    <a href="">首页</a>
+                </li>
+                <li>
+                    <a href="">华为官网</a>
+                </li>
+                <li>
+                    <a href="">荣耀官网</a>
+                </li>
+                <li>
+                    <a href="">花粉俱乐部</a>
+                </li>
+                <li>
+                    <a href="">V码(优购码)</a>
+                </li>
+                <li>
+                    <a href="">企业购</a>
+                </li>
+                <li>
+                    <a href="">Select Region</a>
+                </li>
+                <li class="nav_l1">
+                    <a href="" class="">更多精彩</a>
+                    <ul class="nav_l2">
+                        <li>
+                            <a href="">EMUI</a>
+                        </li>
+                        <li>
+                            <a href="">应用市场</a>
+                        </li>
+                        <li>
+                            <a href="">华为终端云空间</a>
+                        </li>
+                        <li>
+                            <a href="">开发者联盟</a>
+                        </li>
+
+                    </ul>
+                </li>
+            </ul>
+            <ul class="nav_r">
+                <li>
+                    <a href="">请登录</a>
+                </li>
+                <img src="./img/images/q1.jpg" alt="">
+                <li>
+                    <a href="">注册</a>
+                </li>
+                <img src="./img/images/q1.jpg" alt="">
+                <li>
+                    <a href="">我的订单</a>
+                </li>
+                <img src="./img/images/q1.jpg" alt="">
+                <li>
+                    <a href="">客户服务</a>
+                </li>
+                <img src="./img/images/q1.jpg" alt="">
+                <li>
+                    <a href="">导航服务</a>
+                </li>
+                <img src="./img/images/q1.jpg" alt="">
+
+            </ul>
+        </div>
+    </div>
+    <div id="nav_shop">
+        <div class="nav_shopmin">
+            <a href="">
+                <img src="./img/shopp-1.png" alt="">
+            </a>
+            <span>商品列表</span>
+        </div>
+
+    </div>
+
+    <div id="goods">
+        <div class="goods_head">
+            <h2>华为专区</h2>
+        </div>
+        <div class="goods_box">
+            <ul class="box_2">
+               
+            </ul>
+            <ul class="box_2">
+                
+            </ul>
+            <ul class="box_2">
+            </ul>
+            
+        </div>
+    </div>
+
+
+
+    <div id="goods-1">
+        <div class="goods_head">
+            <h2>荣耀专区</h2>
+        </div>
+        <div class="goods_box">
+            <ul class="box_2">
+               
+            </ul>
+            <ul class="box_2">
+               
+            </ul>
+            <ul class="box_2">
+                
+            </ul>
+        </div>
+    </div>
+
+    <div id="footer">
+
+        <div class="foot-server">
+            <div class="foot-l">
+                <ul>
+                    <li>购物相关</li>
+                    <li>购物指南</li>
+                    <li>配送方式</li>
+                    <li>支付方式</li>
+                    <li>常见问题</li>
+                </ul>
+                <ul>
+                    <li>保修与退货</li>
+                    <li>保修政策</li>
+                    <li>退换货流程</li>
+                    <li>保修状态</li>
+                    <li>配件防伪查询</li>
+                </ul>
+                <ul>
+                    <li>维修与技术支持</li>
+                    <li>购物指南</li>
+                    <li>配送方式</li>
+                    <li>支付方式</li>
+                    <li>常见问题</li>
+                </ul>
+                <ul>
+                    <li>特色服务</li>
+                    <li>购物指南</li>
+                    <li>配送方式</li>
+                    <li>支付方式</li>
+                    <li>常见问题</li>
+                </ul>
+                <ul>
+                    <li>关于我们</li>
+                    <li>购物指南</li>
+                    <li>配送方式</li>
+                    <li>支付方式</li>
+                    <li>常见问题</li>
+                </ul>
+            </div>
+            <div class="foot-r">
+                <div>950805</div>
+                <span>7x24小时客服热线（仅收市话费）</span>
+                <div>
+                    <a href="">在线客服</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</body>
+
+</html>
+<script src="./jQuery3.2.1/jquery-3.2.1.min.js"></script>
+<script>
+    function getGoods_1() {
+        $.get("./php/getGoodsListNew.php",{
+            "typeId":"001",
+            "count":5
+        },function (data) {
+            showData(data)
+            // console.log(data)
+        },"json") 
+    }
+
+    function showData(data) {
+        let htmlstr = "";
+        data.forEach(item => {
+            htmlstr += `
+                <li>
+                    <a href="goodslist.html?goodsId=${item.goodsId}" target="_blank">
+                        <p>
+                            <img src="${item.goodsImg}" alt="">
+                        </p>
+                        <div>${item.goodsName}</div>
+                        <span>${item.goodsDesc}</span>
+                        <span>￥${item.goodsPrice}</span>
+                    </a>
+                </li>
+            `
+        });
+        $("#goods .box_2").html(htmlstr)
+    }
+
+    function getGoods_2(){
+        $.get("./php/getGoodsListNew.php",{
+            "typeId":"002",
+            "count":5
+        },function(data){
+            showData_1(data);
+        },"json")
+        
+    }
+
+    function showData_1(data){
+        let htmlstr ="";
+            data.forEach(item=>{
+                htmlstr +=`
+                <li>
+                    <a href="goodslist.html?goodsId=${item.goodsId}" target="_blank">
+                        <p>
+                            <img src="${item.goodsImg}"  alt="">
+                        </p>
+                        <div>${item.goodsName}</div>
+                        <span>${item.goodsDesc}</span>
+                        <span>￥${item.goodsPrice}</span>
+                    </a>
+                </li>
+                `;
+            })
+            $("#goods-1 .goods_box .box_2").html(htmlstr)
+    }
+
+    $(function(){
+        getGoods_1();
+        getGoods_2();
+    })
+    
+</script>

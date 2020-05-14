@@ -1,0 +1,123 @@
+@charset "utf-8";
+
+#top-header{
+    width: 100%;
+    height: 38px;
+    background-color: rgba(0,0,0,0.05);
+}
+#top-header .top_content{
+    width: 960px;
+    height: 100%;
+    margin: 0 auto;
+    position: relative;
+}
+#top-header .logo{
+    margin-top: 9.6px;
+    width: 95px;
+    float: left;
+}
+#top-header .logo>img{
+    display: inline-block;
+    height: 19px;
+    margin-left: 4px;
+}
+
+#top-header .logo_c{
+    font-size: 16px;
+    height: 38px;
+    line-height: 38px;
+    font-family: "arial";
+    display: inline-block;
+    
+}
+
+#top-header .logo_c>strong:nth-child(1){
+    height: 16px;
+    width: 1px;
+    margin: 11px 12px;
+    float: left;
+    background-color: rgba(0,0,0,0.2);
+}
+#top-header .logo_c>strong:nth-child(2){
+    font-size: 12.8px;
+    margin-top: 2px;
+    color: #191919;
+    font-weight: 700;
+    float: left;
+}
+#regsiter{
+    width: 960px;
+    min-height: 750px;
+    margin: 0 auto;
+    color: #191919;
+    
+}
+#regsiter>h2{
+    margin: 100px auto 0;
+    font-size: 32px;
+    text-align: center;
+}
+#regsiter .reg_z{
+    margin: 8px auto 60px;
+    font-size: 18px;
+    color: #191919;
+    text-align: center;
+}
+#regsiter .reg_z>a{
+    color: #007dff;
+}
+
+#regsiter .phone{
+    width: 440px;
+    height: 58px;
+    background-color:rgba(0, 0, 0, 0.05);
+    border-radius: 8px;
+    border: 1px solid transparent;
+    margin: 0 auto 20px;
+}
+#regsiter .phone input{
+    width: 308px;
+    height: 48px;
+    line-height: 48px;
+    padding: 5px 20px;
+    border-radius: 8px;
+    border: 0;
+    background-color: transparent;
+    font-size: 18px;
+    color: #191919;
+    
+}
+
+#regsiter .zhuce{
+    margin-top: 40px;
+    text-align: center;
+}
+#regsiter .zhuce input{
+    width: 220px;
+    height: 38px;
+    font-size: 14px;
+    font-weight: 400;
+    display: inline-block;
+    color: #fff;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    cursor: pointer;
+    padding: 0 12px;
+    background-color: #CA141D;
+    text-transform: uppercase;
+
+}
+#footer{
+    width: 100%;
+    height: 70px;
+    background-color: rgba(0,0,0,0.05);
+    position: absolute;
+    bottom: 0;
+}
+#footer p{
+    color: #000000;
+    font-size: 12px;
+    opacity: 0.5;
+    margin: 20px auto 0;
+    text-align: center;
+}

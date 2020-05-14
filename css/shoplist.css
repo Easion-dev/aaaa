@@ -1,0 +1,387 @@
+@charset "utf-8";
+body{
+    background-color: #f5f5f5;
+}
+
+#nav{
+    background-color: #f9f9f9;
+    height: 36px;
+}
+#nav-wrap{
+    width: 1200px;
+    height: 36px;
+    margin: 0 auto;
+    
+}
+
+#nav-wrap .nav_l li{
+    font: 12px/1.5 "Helvetica Neue",
+    Helvetica,
+    Arial,
+    "Microsoft Yahei",
+    "Hiragino Sans GB",
+    "Heiti SC",
+    "WenQuanYi Micro Hei",
+    sans-serif;
+    float: left;
+    padding: 0 8px;
+    position: relative;
+    
+    
+}
+
+#nav-wrap .nav_l>li::before{
+    content: "";
+    width: 1px;
+    height: 10px;
+    display: block;
+    position: absolute;
+    top:13px;
+    left: 0px;
+    background-color: #414141;
+}
+
+#nav-wrap .nav_l li a{
+    height: 36px;
+    line-height: 36px;
+    color: #afafaf;
+}
+#nav-wrap .nav_l li a:hover{
+    height: 36px;
+    line-height: 36px;
+    color: red ;
+}
+
+#nav-wrap .nav_l .l_na::before{
+    background-color:#fff;
+}
+
+#nav-wrap .nav_l1{
+    position: relative;
+}
+#nav-wrap .nav_l1>a:hover{
+    position: relative;
+}
+
+
+#nav-wrap .nav_l2{
+    position: absolute;
+    top:36px;
+    left: -20px;
+    display: none;
+    z-index: 500;
+}
+#nav-wrap .nav_l2 li{
+    display: block;
+    width: 85px;
+    height: 36px;
+    text-align: center;
+    line-height: 36px;
+    color:#afafaf;
+    background-color: #ffffff;
+}
+#nav-wrap .nav_l2 li:first-child{
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+}
+#nav-wrap .nav_l2 li:last-child{
+    border-bottom-left-radius: 5px;
+    border-bottom-right-radius: 5px;
+}
+
+#nav-wrap .nav_l1:hover{
+    background-color: #ffffff;
+}
+#nav-wrap .nav_l1 a:hover{
+    color: red !important;
+}
+
+
+#nav-wrap li:hover .nav_l2{
+    display: block;
+}
+
+
+#nav-wrap .nav_r {
+    width:430px;
+    height: 36px;
+    float:right;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+}
+
+#nav-wrap .nav_r li{
+    width: 82px;
+    height: 36px;
+    font:12px/1.5 "Helvetica Neue",
+    Helvetica,
+    Arial,
+    "Microsoft Yahei",
+    "Hiragino Sans GB",
+    "Heiti SC",
+    "WenQuanYi Micro Hei",
+    sans-serif ;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+#nav-wrap .nav_r li a{
+    color:#afafaf;
+}
+
+#nav-wrap .nav_r li a:hover{
+    height: 36px;
+    line-height: 36px;
+    color: #fff;
+}
+#nav-wrap .nav_r .iconfont{
+    color:#afafaf;
+}
+
+#nav_shop{
+    background-color: #ffffff;
+}
+#nav_shop .nav_shopmin{
+    width: 1200px;
+    height: 41px;
+    padding: 18px 0 15px 0;
+    margin: 0 auto;
+}
+#nav_shop img{
+    width: 120px;
+    height: 30px;
+    float: left;
+    margin-top: 6px;
+
+}
+#nav_shop span{
+    
+    margin-left: 26px;
+    font-size: 22px;
+    line-height: 41px;
+    color: #3a3a3a;
+    float: left;
+}
+
+
+#goods{
+    width: 1200px;
+    min-height: 1000px;
+    margin: 0 auto;
+
+}
+#goods .goods_head>h2{
+    font-size: 26px;
+    color: #333;
+    padding:27px 0 0 0;
+}
+
+
+#goods .goods_box .box_2 li{
+    width: 210px;
+    height: 290px;
+    float: left;
+    margin-top: 12px;
+    margin-left: 12px;
+    border-radius: 10px;
+    transition: 0.5s;
+    background-color: #f9f9f9;
+
+}
+
+#goods .goods_box .box_2 li:hover{
+    box-shadow: 0 4px 6px  rgba(0,0,0,1);
+
+}
+
+
+
+#goods .goods_box .box_2>li>a{
+    display: inline-block;
+    width: 100%;
+    height: 100%;
+    text-align: center;
+}
+
+#goods .goods_box .box_2>li>a>p{
+    width: 150px;
+    height: 150px;
+    margin: 35px auto 0;
+}
+
+#goods .goods_box .box_2>li>a>p>img{
+    width: 100%;
+    height: 100%;
+}
+
+#goods .goods_box .box_2>li>a>div{
+    width: 210px;
+    height: 21px;
+    margin: 12px auto 0;
+    line-height: 21px;
+    font-size: 14px;
+    font-weight: 400;    
+}
+
+#goods .goods_box .box_2>li>a>span{
+    display: block;
+    color: #777;
+    height: 18px;
+    line-height: 18px;
+    margin: 2px 20px 7px;
+    font-size: 12px;
+}
+#goods .goods_box .box_2>li>a>span:nth-of-type(2){
+    color: #d0021b;
+    margin: 5px auto 0;
+}
+
+
+
+#goods-1{
+    width: 1200px;
+    min-height: 1000px;
+    margin: 0 auto;
+
+}
+#goods-1 .goods_head>h2{
+    font-size: 26px;
+    color: #333;
+    padding:27px 0 0 0;
+}
+
+
+#goods-1 .goods_box .box_2 li{
+    width: 210px;
+    height: 290px;
+    float: left;
+    margin-top: 12px;
+    margin-left: 12px;
+    border-radius: 10px;
+    transition: 0.5s;
+    background-color: #f9f9f9;
+
+}
+
+#goods-1 .goods_box .box_2 li:hover{
+    box-shadow: 0 4px 6px  rgba(0,0,0,1);
+
+}
+
+
+
+#goods-1 .goods_box .box_2>li>a{
+    display: inline-block;
+    width: 100%;
+    height: 100%;
+    text-align: center;
+}
+
+#goods-1 .goods_box .box_2>li>a>p{
+    width: 150px;
+    height: 150px;
+    margin: 35px auto 0;
+}
+
+#goods-1 .goods_box .box_2>li>a>p>img{
+    width: 100%;
+    height: 100%;
+}
+
+#goods-1 .goods_box .box_2>li>a>div{
+    width: 210px;
+    height: 21px;
+    margin: 12px auto 0;
+    line-height: 21px;
+    font-size: 14px;
+    font-weight: 400;    
+}
+
+#goods-1 .goods_box .box_2>li>a>span{
+    display: block;
+    color: #777;
+    height: 18px;
+    line-height: 18px;
+    margin: 2px 20px 7px;
+    font-size: 12px;
+}
+#goods-1 .goods_box .box_2>li>a>span:nth-of-type(2){
+    color: #d0021b;
+    margin: 5px auto 0;
+}
+
+#footer{
+    width: 1200px;
+    min-height: 207px;
+    margin: 30px auto;
+}
+
+
+#footer .foot-server{
+    width: 1200px;
+    height: 211px;
+    border-top: 1px solid #ccc ;
+    margin: 30px auto;
+   
+}
+
+#footer .foot-server .foot-l{
+    width: 921px;
+    height: 160px;
+    margin-top: 20px;
+    float: left;
+}
+#footer .foot-server .foot-l>ul{
+    width: 154px;
+    height: 138px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-left:10px ;
+    float: left;
+}
+
+#footer .foot-server .foot-l>ul>li{
+    font-size: 12px;
+    color: #777777;
+    margin: 7px;
+}
+#footer .foot-server .foot-l>ul>li:nth-of-type(1){
+    font-size: 14px;
+    color: #333;
+}
+
+#footer .foot-r{
+    width: 260px;
+    height: 160px;
+    margin-top: 20px;
+    float: right;
+    border-left: 1px solid #ccc;
+    text-align: center;
+}
+
+#footer .foot-r div:nth-child(1){
+    color: #575757;
+    font-size: 24px;
+    margin-bottom: 10px;
+}
+#footer .foot-r>span{
+    display: block;
+    font-size: 16px;
+    color: #575757;
+    margin-bottom: 10px;
+}
+#footer .foot-r div:nth-of-type(2) a{
+    display: block;
+    width: 170px;
+    height: 34px;
+    font-size: 14xp;
+    background-color: #333;
+    border-radius: 17px;
+    margin: 0 auto;
+    text-align: center;
+    color: #ffffff;
+}
+
