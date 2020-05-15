@@ -3,6 +3,23 @@ $("#buttonTop-close").click(function(){
     $("#top-banner").css("display","none");
 })
 
+function user_Login(){
+    let username = getCookie("userName")
+    if(username==null){
+        $("#nav .nav_r .user").hide()
+        $("#btnLogin").show()
+    }else{
+        $("#nav .nav_r .userSpan").html(username)
+        $("#nav .nav_r .user").show()
+        $("#btnLogin").hide()
+        
+    }
+
+
+}
+
+
+
 // $("#nav-wrap ul li").hover(
 //     function(){
 //     $("#nav-wrap ul a").css({"color":"#fff"});
@@ -75,8 +92,12 @@ $(function(){
         stopPlay();
         goImg(ord+1);
     });
-
+    user_Login()
  
+    $("#nav .nav_r .user .userOut").click(function(){
+        removeCookie("userName")
+        user_Login()
+    })
     
 
 })

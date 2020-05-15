@@ -56,7 +56,11 @@
             </ul>
             <ul class="nav_r">
                 <li>
-                    <a href="">请登录</a>
+                    <a id="btnLogin" href="./login.html">请登录</a>
+                    <div class="user">
+                        欢迎：<span class="userSpan"></span>
+                        <input class="userOut" type="button" value="注销">
+                    </div>
                 </li>
                 <img src="./img/images/q1.jpg" alt="">
                 <li>
@@ -100,36 +104,8 @@
             <table class="ta">
                 <tbody>
                     <!-- <div class="all">全选：<input type="checkbox"></div> -->
-                    <tr>
-                        <td><input type="checkbox"></td>
-                        <td><img src="./img/shoopercar.png" alt=""></td>
-                        <td>
-                            <p>荣耀30 50倍超稳远摄 超感光高清夜拍 40W超级快充 双模5G 8GB+128GB 钛空银</p>
-                        </td>
-                        <td>￥<span>5400</span></td>
-                        <td>
-                            <input class="reduceBtn" type="button" value="-">
-                            <span>2</span>
-                            <input class="addBtn" type="button" value="+">
-                        </td>
-                        <td>￥<span>5400</span></td>
-                        <td><input class="delBtn" type="button" value="×"></td>
-                    </tr>
-                    <tr>
-                        <td><input type="checkbox"></td>
-                        <td><img src="./img/shoppercar_1.png" alt=""></td>
-                        <td>
-                            <p>荣耀30 50倍超稳远摄 超感光高清夜拍 40W超级快充 双模5G 8GB+128GB 钛空银</p>
-                        </td>
-                        <td>￥<span>5400</span></td>
-                        <td>
-                            <input class="reduceBtn" type="button" value="-">
-                            <span>3</span>
-                            <input class="addBtn" type="button" value="+">
-                        </td>
-                        <td>￥<span>5400</span></td>
-                        <td><input class="delBtn" type="button" value="×"></td>
-                    </tr>
+                   
+                    
                 </tbody>
             </table>
             <p>总计：￥<span>4399</span></p>
@@ -252,10 +228,72 @@
 
 </html>
 <script src="js/jquery-3.2.1.min.js"></script>
+<script src="./js/cookieTools.js"></script>
 <script src="js/check.js"></script>
 <!-- <script src="./js/shopperlist.js"></script> -->
 <script>
     $(function () {
+        let username = getCookie("userName");
+        let local_goodsId =location.search.split("=")[1];
+        user_Login(username)
+        $("#nav .nav_r .user .userOut").click(function () {
+            removeCookie("userName")
+            user_Login()
+        })
+
+        shoppercar(username);
+
+    })
+
+    function shoppercar(username){
+        $.get("./php/getShoppingCart.php",{
+            "vipName":username
+        },function(data){
+            let htmlstr="";
+
+            data.forEach(item => {
+                let tota =  item.goodsPrice*item.goodsCount
+                htmlstr +=`
+                    <tr>
+                        <td><input type="checkbox"></td>
+                        <td><img src="${item.goodsImg}" alt=""></td>
+                        <td>
+                            <p>${item.goodsName}</p>
+                        </td>
+                        <td>￥<span>${item.goodsPrice}</span></td>
+                        <td>
+                            <input class="reduceBtn" type="button" value="-">
+                            <span id="count" >${item.goodsCount}</span>
+                            <input class="addBtn" type="button" value="+">
+                        </td>
+                        <td>￥<span>${tota}</span></td>
+                        <td><input class="delBtn" type="button" value="×"></td>
+                    </tr>
+                `
+                $("#shopper .ta>tbody").html(htmlstr)
+            });
+
+        }
+        ,"json")
+    }
+
+
+    // function updateCount(){
+    //     $.get("updateGoodsCount.php",{
+    //         "vipName":username,
+    //         "goodsId":local_goodsId,
+    //         "goodsCount":$("#count").val()
+    //     },function(data){
+    //         if(data==1){
+    //             addEvent()
+    //         }else{
+    //             alert("修改数量出错")
+    //         }
+    //     })
+    // }
+
+
+    function addEvent(){
         // $(".all>input :checkbox:eq(0)").check($("tr td  input:checkbox"));
         $("input:checkbox").click(function () {
             total();
@@ -271,8 +309,8 @@
             let money = price * count;
             $(this).parent().next().children().html(money);
 
-            if(count==0){
-                $(this).parent().parent().find(":checkbox").prop("checked",false)
+            if (count == 0) {
+                $(this).parent().parent().find(":checkbox").prop("checked", false)
             }
 
             total();
@@ -294,19 +332,35 @@
             }
         })
 
-        
+    } 
 
-    })
+
+    function user_Login(username) {
+        
+        if (username == null) {
+            $("#nav .nav_r .user").hide()
+            $("#btnLogin").show()
+        } else {
+            $("#nav .nav_r .userSpan").html(username)
+            $("#nav .nav_r .user").show()
+            $("#btnLogin").hide()
+
+        }
+
+
+    }
+
+
 
     function total() {
-            let cash = 0;
-            let $tr = $("table tr");
-            $tr.each(function () {
+        let cash = 0;
+        let $tr = $("table tr");
+        $tr.each(function () {
 
-                if ($(this).find("input:checkbox").prop("checked") == true) {
-                    cash += parseFloat($(this).find("td").eq(5).children().html());
-                }
-            });
-            $("table").next().children().html(cash);
-        }
+            if ($(this).find("input:checkbox").prop("checked") == true) {
+                cash += parseFloat($(this).find("td").eq(5).children().html());
+            }
+        });
+        $("table").next().children().html(cash);
+    }
 </script>

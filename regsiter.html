@@ -1,12 +1,17 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <link rel="stylesheet" href="./css/regsiter.css">
     <link rel="stylesheet" href="./css/reset.css">
+    <style>
+      
+    </style>
 </head>
+
 <body>
     <div id="top-header">
         <div class="top_content">
@@ -26,23 +31,125 @@
             <a href="">去登陆=></a>
         </div>
         <div class="phone">
-            <input type="text" placeholder="请输入手机号">
+            <input id="reg-0" type="text" placeholder="请输入手机号">
             <span></span>
         </div>
         <div class="phone">
-            <input type="password" placeholder="密码">
+            <input id="reg-1" type="password" placeholder="密码">
             <span></span>
         </div>
         <div class="phone">
-            <input type="password" placeholder="请再次输入密码">
+            <input id="reg-2" type="password" placeholder="请再次输入密码">
             <span></span>
         </div>
         <div class="zhuce">
-            <input type="button" value="注册">
+            <input id="btnReg" type="button" value="注册">
         </div>
+        <div id="mess">hello</div>
     </div>
     <div id="footer">
-        <p>Copyright © 2011-2020  华为软件技术有限公司  版权所有  保留一切权利  苏B2-20070200号 | 苏ICP备09062682号-9</p>
+        <p>Copyright © 2011-2020 华为软件技术有限公司 版权所有 保留一切权利 苏B2-20070200号 | 苏ICP备09062682号-9</p>
     </div>
+
 </body>
+
 </html>
+<script src="./js/jquery-3.2.1.min.js"></script>
+<script>
+    function checkUser(reg) {
+        let che = /^1\d{10}/
+        if (che.test($("#reg-0").val()) == false) {
+            $("#reg-0").next().html("×")
+            return
+        }
+
+        $.get("./php/checkUser.php", {
+            "username": $("#reg-0").val()
+        }, function (data) {
+            if (data == 0) {
+                $("#reg-0").next().html("已被使用")
+
+            }else if(data ==1){
+                $("#reg-0").next().html("√")
+                reg&&reg();
+            }
+        })
+    }
+
+
+
+    //不能以数字开头，组合数字字母下划线总共6-15个字符
+    function passUser() {
+        let pass = /^[_a-z]\w{5,14}$/i
+        if (pass.test($("#reg-1").val()) == false) {
+            $("#reg-1").next().html("×")
+            
+        } else if (pass.test($("#reg-1").val()) == true) {
+            $("#reg-1").next().html("√")
+        }
+
+    }
+
+    function passUser_1() {
+        if ($("#reg-1").val() == $("#reg-2").val()) {
+            $("#reg-2").next().html("√")
+        } else {
+            $("#reg-2").next().html("×")
+        }
+    }
+
+    function reg(){
+       
+        $.post("./php/addUser.php",{
+            "username":$("#reg-0").val(),
+            "userpass":$("#reg-1").val()
+        },function(data){
+            if(data =="success"){
+                
+                $("#mess").css({"display":"block"}).html("注册成功，请点击<a href='login.html'>登录</a>")
+            }else if(data=="fail"){
+                $("#mess").css({"display":"block"}).html("注册失败，请重新注册")
+            }
+        }
+        )
+    }
+
+
+
+    $(function () {
+        $("#reg-0").blur(function () {
+            checkUser();
+        })
+
+        $("#reg-1").blur(function () {
+            passUser();
+        })
+
+        $("#reg-2").blur(function () {
+            passUser_1();
+        })
+
+        $("#btnReg").click(function(){
+            if($("#reg-0").val()==""||$("#reg-1").val()==""||$("#reg-2").val()==""){
+                alert("缺少输入的信息")
+                return
+            }else if($("#reg-0").next().html()=="×"||$("#reg-0").next().html()=="已被使用"){
+                alert("请重新输入用户名")
+                return
+            }else if($("#reg-1").next().html()=="×"){
+                alert("请重新输入密码")
+                return
+            }else if($("#reg-2").next().html()=="×"){
+                alert("请重新输入密码")
+                return
+            }
+
+            checkUser(reg)
+
+            
+        
+        })
+        
+
+    })
+</script>

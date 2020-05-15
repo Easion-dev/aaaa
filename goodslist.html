@@ -16,7 +16,7 @@
         <div id="nav-wrap">
             <ul class="nav_l">
                 <li class="l_na">
-                    <a href="">首页</a>
+                    <a href="./index.html">首页</a>
                 </li>
                 <li>
                     <a href="">华为官网</a>
@@ -57,7 +57,11 @@
             </ul>
             <ul class="nav_r">
                 <li>
-                    <a href="">请登录</a>
+                    <a id="btnLogin" href="./login.html">请登录</a>
+                    <div class="user">
+                        欢迎：<span class="userSpan"></span>
+                        <input class="userOut" type="button" value="注销">
+                    </div>
                 </li>
                 <img src="./img/images/q1.jpg" alt="">
                 <li>
@@ -76,9 +80,8 @@
                     <a href="">导航服务</a>
                 </li>
                 <img src="./img/images/q1.jpg" alt="">
-                <li>
-                    <span class="iconfont icon-icon8"></span>
-                    <a href="">购物车</a>
+                <li id="car">
+                    
                 </li>
                 <img src="./img/images/q1.jpg" alt="">
             </ul>
@@ -182,140 +185,6 @@
 
 </html>
 <script src="./jQuery3.2.1/jquery-3.2.1.min.js"></script>
+<script src="./js/cookieTools.js"></script>
+<script src="./js/goodslist.js"></script>
 
-<script>
-    getData();
-
-    function getData() {
-         $.get("./php/getGoodsInfo.php", "goodsId=" + location.search.split("=")[1], function (data) {
-            showData(data)
-        }, "json")
-    }
-
-    function showData(data) {
-         let htmlss = `
-        <div class="goods-img" style="background:url(${data.goodsImg}) no-repeat;background-size: 450px 450px;">
-                <div class="mirror-box"></div>
-                <div class="show-box" style="
-                background: url(${data.goodsImg}) no-repeat;
-                "></div>
-        </div>
-        `;
-        $("#goods .goods-ss").html(htmlss);
-
-
-        let htmlstr = `
-            <h3>${data.goodsName}</h3>
-            <a href="">
-                <p>${data.goodsDesc}</p>
-            </a>
-            <span>价&nbsp;&nbsp;&nbsp;&nbsp;格</span>
-            <span><em>￥</em>${data.goodsPrice}</span>
-            <div class="pro_skus">
-                <span>选择容量</span>
-                <ul>
-                    <a href="javascript:void(0)">
-                        <li>
-                            <span>8G+256G</span>
-                        </li>
-                    </a>
-                    <a href="javascript:void(0)">
-                        <li>
-                            <span>8G+256G</span>
-                        </li>
-                    </a>
-
-
-                </ul>
-            <div class="stock">
-               
-                    <input type="text" value="1">
-                <p>
-                    <a href="javascript:void(0)">+</a>
-                    <a href="javascript:void(0)">-</a>
-                </p>
-                
-
-                <div class="operation">
-                    <a href="javascript::" class="a_1">
-                        <span>加入购物车</span>
-                    </a>
-                    <a href="javascript::">
-                        <span>加入购物车</span>
-                    </a>
-                </div>
-            </div>
-            </div>
-        `;
-        $("#goods .goods-buy").html(htmlstr)
-        fangdajing ();
-
-    }
-
-    
-function fangdajing(){
-        
-         
-        let oMirrorBox = document.getElementsByClassName("mirror-box");
-        let oBox = document.getElementsByClassName("goods-img");
-        let oShowBox = document.getElementsByClassName("show-box");
-        let boxOffsetLeft = oBox[0].offsetLeft;
-        let boxOffsetTop = oBox[0].offsetTop;
-    
-        let mirrorWidth = oMirrorBox[0].offsetWidth;
-        let mirrorHeight = oMirrorBox[0].offsetHeight;
-    
-       
-        $("#goods .goods-img").mousemove(function (event) {
-    
-            let e = event || window.event;
-    
-    
-            let left1 = e.pageX - boxOffsetLeft - mirrorWidth / 2;
-            let top1 = e.pageY - boxOffsetTop - mirrorHeight / 2;
-    
-            if (left1 < 0) {
-                left1 = 0;
-            } else if (left1 + mirrorWidth > 450) {
-                left1 = 450 - mirrorWidth;
-            }
-    
-            if (top1 < 0) {
-                top1 = 0;
-            } else if (top1 + mirrorHeight > 450) {
-                top1 = 450 - mirrorHeight;
-            }
-    
-      
-            oMirrorBox[0].style.left = left1 + "px";
-            oMirrorBox[0].style.top = top1 + "px";
-    
-    
-            oShowBox[0].style.backgroundPosition = `-${left1*2}px -${top1*2}px`;
-    
-        })
-    
-        $("#goods .goods-img").mouseenter(function () {
-            $("#goods .show-box").css("display", "block")
-            $("#goods .mirror-box").css("opacity", "0.3")
-    
-        })
-        $("#goods .goods-img").mouseleave(function () {
-            $("#goods .show-box").css("display", "none")
-            $("#goods .mirror-box").css("opacity", "0")
-        })
-    
-       
-      
-       
-      }
-            
-    
-    
-    
-    
-
-     
-
-</script>
-<!-- <script src="./js/goodslist.js"></script> -->
