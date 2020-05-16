@@ -50,7 +50,6 @@
                         <li>
                             <a href="">开发者联盟</a>
                         </li>
-
                     </ul>
                 </li>
             </ul>
@@ -93,19 +92,19 @@
 
     </div>
     <div id="shopper">
-        <div class="shop_yin">
+        <!-- <div class="shop_yin">
             <div class="shop_login">
                 <span>你还没登陆无法查看购物车信息</span>
                 <a href="">登陆</a>
             </div>
-        </div>
+        </div> -->
 
         <div class="shop_empty">
             <table class="ta">
                 <tbody>
                     <!-- <div class="all">全选：<input type="checkbox"></div> -->
-                   
-                    
+
+
                 </tbody>
             </table>
             <p>总计：￥<span>4399</span></p>
@@ -234,31 +233,32 @@
 <script>
     $(function () {
         let username = getCookie("userName");
-        let local_goodsId =location.search.split("=")[1];
+        let local_goodsId = location.search.split("=")[1];
         user_Login(username)
         $("#nav .nav_r .user .userOut").click(function () {
             removeCookie("userName")
             user_Login()
         })
 
-        shoppercar(username);
+        shoppercar(username, addEvent);
 
     })
 
-    function shoppercar(username){
-        $.get("./php/getShoppingCart.php",{
-            "vipName":username
-        },function(data){
-            let htmlstr="";
+    function shoppercar(username, cb) {
+        $.get("./php/getShoppingCart.php", {
+            "vipName": username
+        }, function (data) {
+            let htmlstr = "";
 
             data.forEach(item => {
-                let tota =  item.goodsPrice*item.goodsCount
-                htmlstr +=`
+                let tota = item.goodsPrice * item.goodsCount
+                htmlstr += `
                     <tr>
                         <td><input type="checkbox"></td>
                         <td><img src="${item.goodsImg}" alt=""></td>
                         <td>
                             <p>${item.goodsName}</p>
+                            <p>${item.goodsId}</p>
                         </td>
                         <td>￥<span>${item.goodsPrice}</span></td>
                         <td>
@@ -272,71 +272,101 @@
                 `
                 $("#shopper .ta>tbody").html(htmlstr)
             });
+            cb()
+        }, "json")
 
-        }
-        ,"json")
+
     }
 
 
-    // function updateCount(){
-    //     $.get("updateGoodsCount.php",{
-    //         "vipName":username,
-    //         "goodsId":local_goodsId,
-    //         "goodsCount":$("#count").val()
-    //     },function(data){
-    //         if(data==1){
-    //             addEvent()
-    //         }else{
-    //             alert("修改数量出错")
-    //         }
-    //     })
-    // }
+    function updateCount(vipName, goodsId, goodsCount, cb) {
+        $.get("./php/updateGoodsCount.php", {
+            "vipName": vipName,
+            "goodsId": goodsId,
+            "goodsCount": goodsCount
+        }, function (data) {
+            if (data == 1) {
+                cb()
+            } else {
+                alert("修改数量出错")
+            }
+        })
+    }
+
+    function del(vipName, goodsId, cb) {
+        $.get("./php/deleteGoods.php", {
+            "vipName": vipName,
+            "goodsId": goodsId
+        }, function (data) {
+            if (data == 1) {
+                cb()
+            } else if (data == 0) {
+                alert("删除失败")
+            }
+        })
+    }
 
 
-    function addEvent(){
+    function addEvent() {
+        let username = getCookie("userName");
+        
         // $(".all>input :checkbox:eq(0)").check($("tr td  input:checkbox"));
         $("input:checkbox").click(function () {
             total();
         })
         $(".reduceBtn").click(function () {
             let count = $(this).next().html();
+            let goodsId = $(this).parent().prev().prev().children().eq(1).html()
             count--;
             if (count < 1) {
                 count = 0;
             }
-            $(this).next().html(count);
-            let price = $(this).parent().prev().children().html();
-            let money = price * count;
-            $(this).parent().next().children().html(money);
+            updateCount(username, goodsId, count, () => {
+                $(this).next().html(count);
+                let price = $(this).parent().prev().children().html();
+                let money = price * count;
+                $(this).parent().next().children().html(money);
 
-            if (count == 0) {
-                $(this).parent().parent().find(":checkbox").prop("checked", false)
-            }
+                if (count == 0) {
+                    $(this).parent().parent().find(":checkbox").prop("checked", false)
+                }
 
-            total();
+                total();
+            })
+
+
         })
 
         $(".addBtn").click(function () {
             let count = $(this).prev().html();
             count++;
-            $(this).prev().html(count);
-            let price = $(this).parent().prev().children().html();
-            let money = price * count;
-            $(this).parent().next().children().html(money);
-            total();
+            let goodsId = $(this).parent().prev().prev().children().eq(1).html()
+            updateCount(username, goodsId, count, () => {
+                $(this).prev().html(count);
+                let price = $(this).parent().prev().children().html();
+                let money = price * count;
+                $(this).parent().next().children().html(money);
+                total();
+            })
+
+
         })
 
         $(".delBtn").click(function () {
+            let username = getCookie("userName");
+            let goodsId = $(this).parent().prev().prev().children().eq(1).html()
             if (confirm("尊敬的客户，请问您确定要删除吗？")) {
+            del(username,goodsId,()=>{
                 $(this).parent().parent().remove();
-            }
+            })
+        }
         })
 
-    } 
+    }
 
 
     function user_Login(username) {
-        
+
         if (username == null) {
             $("#nav .nav_r .user").hide()
             $("#btnLogin").show()
@@ -346,7 +376,6 @@
             $("#btnLogin").hide()
 
         }
-
 
     }
 
